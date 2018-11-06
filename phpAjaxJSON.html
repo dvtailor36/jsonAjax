@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PHP AJAX</title>
+</head>
+<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function()
+		{
+			$("#crypto_amount").keyup(function()
+			{
+				var crypto_amount=$("#crypto_amount").val();
+				var CryptoCurrencyName=$("#CryptoCurrencyName").val();
+				var CountryCurrencyName=$("#CountryCurrencyName").val();
+				var crypto_price=$("#crypto_price").val();
+
+				$.ajax({
+					type:"post",
+					url:"phpAjaxJSON.php",
+					data:"amount="+crypto_amount+"&currency1="+CryptoCurrencyName+"&currency2="+CountryCurrencyName+"&price="+crypto_price+"&action=a1",
+					success:function(data)
+					{
+                    				//alert(data);
+                    				var A=JSON.parse(data)
+                    				$("#fieldd").html("<span style='color:red'>"+A[3]+ "</span> is the Price, <span style='color:red'>"+A[2]+"</span> is the country currency, <span style='color:red'>"+A[1]+"</span> is the cryptocurrency");
+
+                    				/*setTimeout(function(){
+                    					$('#D1').hide();
+                    				}, 5000);*/
+                    				
+                    			}
+                    		})
+			})
+		})
+
+	</script>
+
+	<div id="D1">
+		<p id="fieldd"></p>
+	</div>
+
+	<input type="text" name="crypto_amount" id="crypto_amount" value="1"> 
+	<br>
+	<input type="text" name="CryptoCurrencyName" id="CryptoCurrencyName" value="BTC">
+	<br>
+	<input type="text" name="CountryCurrencyName" id="CountryCurrencyName" value="INR">
+	<br>
+	<input type="text" name="crypto_price" id="crypto_price" value="100000">
+
+	<button id="click">Click Here!</button>
+
+</body>
+</html>
